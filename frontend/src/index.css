@@ -2,3 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
+/* directives used i tailwind css , lets us include different layers of CSS's framework to our custom style sheet */
