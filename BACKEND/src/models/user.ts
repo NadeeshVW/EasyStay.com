@@ -1,11 +1,14 @@
+//Represent user document in mongodb database
+
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+//
 export type UserType = {
     _id: string;
     email: string;
     password: string;
-    lastNmae: string;
+    lastName: string;
 }
 
 const userSchema = new mongoose.Schema({
