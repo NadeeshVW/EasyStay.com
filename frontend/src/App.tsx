@@ -1,3 +1,5 @@
+// Here we define routes and Elements
+
 import {
   BrowserRouter as Router,
   Route,
