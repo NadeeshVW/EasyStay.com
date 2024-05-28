@@ -1,6 +1,8 @@
-import { useForm } from "react-hook-form";
+
+
+import { useForm } from "react-hook-form"; //form handling
 import { useMutation, useQueryClient } from "react-query";
-import * as apiClient from '../api-client';
+import * as apiClient from '../api-client';    //import api client functions
 import { useAppContext } from "../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
 
@@ -14,9 +16,11 @@ export type RegisterFormData = {
 
 const Register = () => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = useNavigate();   //to jump back to home page
   const {showToast} =useAppContext();
 
+  //what we will input
+  //desructured th form state from the usefrm hook and errors from formstate. 
   const {
     register,
     watch,
@@ -24,11 +28,13 @@ const Register = () => {
     formState: { errors },
   } = useForm<RegisterFormData>();
 
+
+  //it makes request that changesor create something
   const mutation = useMutation(apiClient.register, {
     onSuccess: async ()=> {
         showToast({message: "Registration success!", type: "SUCCESS"});
         await queryClient.invalidateQueries("validateToken");
-        navigate("/");
+        navigate("/"); //navigating back to home page
     },
     onError: (error: Error) => {
         showToast({message:error.message, type:"ERROR"})
@@ -106,8 +112,8 @@ const Register = () => {
             validate: (val) => {
               if (!val) {
                 return "This field is required";
-              } else if (watch("password") !== val) {
-                return "Your password do not match";
+              } else if (watch("password") !== val) {   //watch to validate the password
+                return "Your passwords do not match";
               }
             },
           })}
