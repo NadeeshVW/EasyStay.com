@@ -8,6 +8,7 @@ type ToastProps = {
 
 const Toast = ({message, type, onClose}: ToastProps) => {
 
+    //timer for toast
     useEffect(() => {
         const timer = setTimeout(() => {
             onClose()
@@ -16,7 +17,7 @@ const Toast = ({message, type, onClose}: ToastProps) => {
         return () => {
             clearTimeout(timer);
         };
-    }, [onClose]);
+    }, [onClose]); //it will run only for 1st time or when onclose function is changed
 
 const styles =
     type === "SUCCESS"
@@ -26,7 +27,8 @@ const styles =
     return(
         <div className={styles}>
             <div className="flex justify-center items-center">
-                <span className="text-lg font-semibold">{message}</span>
+                {/* message from props */}
+                <span className="text-lg font-semibold">{message}</span> 
             </div>
         </div>
     )
