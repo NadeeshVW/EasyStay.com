@@ -1,3 +1,5 @@
+// provides a centralized place to manage the application's state related to user authentication and toast notifications.
+
 import React, { useContext, useState } from "react";
 import Toast from "../components/toast";
 import * as apiClient from '../api-client'
@@ -8,14 +10,16 @@ type ToastMessage = {
     type:"SUCCESS" | "ERROR";
 };
 
+//all things that our components can access
 type AppContext = {
     showToast: (toastMessage: ToastMessage) => void;
     isLoggedIn: boolean;
 };
 
-const AppContext = React.createContext<AppContext | undefined>(undefined);
+//creates a new conteext
+const AppContext = React.createContext<AppContext | undefined>(undefined);  //when app loads for he firis time the context is going to be undefined
 
-
+//provider wraps our components and gives our components access to all the thingss in the context.
 export const AppContextProvider = ({
     children
 } : {
@@ -35,6 +39,7 @@ export const AppContextProvider = ({
             isLoggedIn: !isError
         }}
         >
+            {/* show toast when thre is and sets it to undefined when no message is there */}
             {toast && (<Toast message={toast.message} type={toast.type} onClose={()=> setToast(undefined)}/>)}
             {children}
         </AppContext.Provider>
