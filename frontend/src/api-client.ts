@@ -1,3 +1,5 @@
+// fetch requests
+
 import { SignInFormData } from "./pages/SignIn";
 import { RegisterFormData } from "./pages/register";
 
@@ -5,12 +7,14 @@ import { RegisterFormData } from "./pages/register";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 
-export const register = async (formData: RegisterFormData) => {
-    const response = await fetch(`${API_BASE_URL}/api/users/register`, {
+export const register = async (formData: RegisterFormData) => {    /*registerformdata imported from register.tsx*/
+    
+    // this willl make the fetch req  for us and server response which will get stored
+    const response = await fetch(`${API_BASE_URL}/api/users/register`, {     //attachiang URL into fetch request
         method: 'POST',
         credentials: "include",
         headers: {
-            "Content-Type" : "application/json"
+            "Content-Type" : "application/json"   //body of formt json
         },
         body: JSON.stringify(formData),
     });
