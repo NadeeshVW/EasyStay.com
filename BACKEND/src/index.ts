@@ -1,3 +1,5 @@
+//file where server starts
+
 import express,{ Request, Response} from 'express';
 import cors from 'cors';
 import "dotenv/config";   // loads the environment variables when the app starts
@@ -10,11 +12,11 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);  //connect to
 
 
 const app = express();   //created new express app
-app.use(cookieParser());
+app.use(cookieParser());                 
 app.use(express.json())                     //helps convert body of api to json
 app.use(express.urlencoded({extended:true})) //parse the URL to create parameters
 app.use(cors({                                //prevent certain request from certain url(security)
-    origin : process.env.FRONTEND_URL,
+    origin : process.env.FRONTEND_URL,    //server is going to accept request from thi file only
     credentials: true,
 }));
 
