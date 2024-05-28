@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {},
     container: {
-      padding:{
+      padding:{    //apply ppadding to those screen which are medium
         md: "10rem",
       },
     }
