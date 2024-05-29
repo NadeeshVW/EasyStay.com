@@ -4,7 +4,7 @@ import { SignInFormData } from "./pages/SignIn";
 import { RegisterFormData } from "./pages/register";
 
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";  // '|| ""' tell th fetch request that there is no API base url so just use the same server for all the equests
 
 
 export const register = async (formData: RegisterFormData) => {    /*registerformdata imported from register.tsx*/
@@ -18,7 +18,7 @@ export const register = async (formData: RegisterFormData) => {    /*registerfor
         },
         body: JSON.stringify(formData),
     });
-
+  
     const responseBody = await response.json();
 
     if(!response.ok) {
