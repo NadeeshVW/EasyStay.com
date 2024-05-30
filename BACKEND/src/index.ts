@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true })); //parse the URL to create param
 app.use(
   cors({
     //prevent certain request from certain url(security)
-    origin: process.env.FRONTEND_URL, //server is going to accept request from thi file only
+    origin: process.env.FRONTEND_URL, //server is going to accept request from this file only
     credentials: true,
   })
 );
