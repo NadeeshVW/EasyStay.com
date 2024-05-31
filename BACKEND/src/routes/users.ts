@@ -47,7 +47,7 @@ router.post("/register",
     return res.status(200).send({message: "user registered OK"});
   } catch (error) {  //if something goes wrong it will keep it in console and not show to client as it may reveal sensitive information.
     console.log(error);
-    res.status(500).send({ messgae: "Something went wrong" });
+    res.status(500).send({ message: "Something went wrong" });
   }
 });
 export default router;
