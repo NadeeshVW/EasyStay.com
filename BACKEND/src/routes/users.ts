@@ -35,14 +35,14 @@ router.post("/register",
     const token = jwt.sign(
       { userId: user.id },
       process.env.JWT_SECRET_KEY as string, {  //used to encrypt the token 
-        expiresIn: "1d"
+        expiresIn: "30d"
       }
     );
 
     res.cookie("auth_token", token,{
         httpOnly: true,                 //http only cookie that can be accessed on web only
         secure: process.env.NODE_ENV === "production",  //conditional
-        maxAge: 86400000,      //same as expires in but in miliseconds
+        maxAge: 2592000000,      //same as expires in but in miliseconds
     })
     return res.status(200).send({message: "user registered OK"});
   } catch (error) {  //if something goes wrong it will keep it in console and not show to client as it may reveal sensitive information.
