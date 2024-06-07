@@ -60,8 +60,8 @@ router.post(
 
       //4. return a 201 status
       res.status(201).send(hotel);
-    } catch (e) {
-      console.log("Error creating hotel", e);
+    } catch (error) {
+      console.log("Error creating hotel", error);
       res.status(500).json({ message: "Something went wrong" });
     }
   }
