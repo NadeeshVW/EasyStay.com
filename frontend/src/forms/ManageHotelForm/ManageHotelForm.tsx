@@ -11,7 +11,7 @@ export type HotelFormData = {
   country: string;
   description: string;
   type: string;
-  PricePerNight: number;
+  pricePerNight: number;
   starRating: number;
   facilities: string[];
   imageFiles: FileList;
@@ -19,7 +19,12 @@ export type HotelFormData = {
   childCount: number;
 };
 
-const ManageHotelForm = () => {
+type Props = {
+    onSave: (hotelFormData: FormData) => void
+    isLoading: boolean
+}
+
+const ManageHotelForm = ({ onSave, isLoading}: Props) => {
     const formMethods = useForm<HotelFormData>();
     const { handleSubmit } =formMethods;
 
@@ -29,9 +34,9 @@ const ManageHotelForm = () => {
         formData.append("name", formDataJson.name);
         formData.append("city", formDataJson.city);
         formData.append("country", formDataJson.country);
-        formData.append("desciption", formDataJson.description);
+        formData.append("description", formDataJson.description);
         formData.append("type", formDataJson.type);
-        formData.append("PricePerNight", formDataJson.PricePerNight.toString());
+        formData.append("pricePerNight", formDataJson.pricePerNight.toString());
         formData.append("starRating", formDataJson.starRating.toString());
         formData.append("adultCount", formDataJson.adultCount.toString());
         formData.append("childCount", formDataJson.childCount.toString());
@@ -42,7 +47,9 @@ const ManageHotelForm = () => {
 
         Array.from(formDataJson.imageFiles).forEach((imageFile)=>{
             formData.append(`imageFiles`, imageFile)
-        })
+        });
+
+        onSave(formData)
     })
 
 
@@ -56,10 +63,12 @@ const ManageHotelForm = () => {
         <ImagesSection />
         <span className="flex justify-end">
           <button
+            disabled={isLoading}
             type="submit"
-            className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl"
+            className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl disable:bg-gray-500"
           >
-            Save
+            {isLoading? "Saving":"Save"}
+            
           </button>
         </span>
       </form>
@@ -68,3 +77,4 @@ const ManageHotelForm = () => {
 };
 
 export default ManageHotelForm;
+
