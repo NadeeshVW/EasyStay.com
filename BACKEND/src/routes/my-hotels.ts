@@ -18,7 +18,7 @@ const upload = multer({
 //api/my-hotels              //post request is going to acceptour form data
 router.post(
   "/",
-  verifyToken,   //so hat only logged in users can create hotels
+  verifyToken, //so hat only logged in users can create hotels
   [
     body("name").notEmpty().withMessage("Name is required"),
     body("city").notEmpty().withMessage("City is required"),
@@ -29,15 +29,17 @@ router.post(
       .notEmpty()
       .isNumeric()
       .withMessage("Price/Night is required and must be a number"),
-      body("facilities").notEmpty().isArray().withMessage("Facilities are required"),
+    body("facilities")
+      .notEmpty()
+      .isArray()
+      .withMessage("Facilities are required"),
     //   body("imageUrls").notEmpty().isArray().withMessage("Facilities are required"),
-
   ],
   upload.array("imageFiles", 6),
   async (req: Request, res: Response) => {
     try {
-      const imageFiles = req.files as Express.Multer.File[];   //get theimage file & all other properties that come along 
-      const newHotel: HotelType = req.body;          // create a nw htel
+      const imageFiles = req.files as Express.Multer.File[]; //get theimage file & all other properties that come along
+      const newHotel: HotelType = req.body; // create a nw htel
 
       //1.upload the image to cloudinary.
 
@@ -66,5 +68,16 @@ router.post(
     }
   }
 );
+//return all th hotels that were created by logged in user.
+router.get("/", verifyToken, async (req: Request, res: Response) => {
+  try {
+  const hotels = await Hotel.find({userId: req.userId})
+  res.json(hotels);
+
+    
+  } catch (error) {
+    res.status(500).json({message: "Error fetching hotels"})
+  }
+});
 
 export default router;
