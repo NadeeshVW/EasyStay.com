@@ -2,7 +2,7 @@
 
 import { SignInFormData } from "./pages/SignIn";
 import { RegisterFormData } from "./pages/register";
-import { HotelType } from '../../BACKEND/src/models/hotel';
+import { HotelType } from '../../BACKEND/src/shared/types';
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";  // '|| ""' tell th fetch request that there is no API base url so just use the same server for all the equests

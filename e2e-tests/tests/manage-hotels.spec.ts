@@ -40,11 +40,28 @@ test("should allow user to add hotel", async ({ page }) => {
   await page.locator('[name="adultCount"]').fill("2");
   await page.locator('[name="childCount"]').fill("1");
 
-  await page.setInputFiles('[name="imageFiles"]', [ 
+  await page.setInputFiles('[name="imageFiles"]', [
     path.join(__dirname, "files", "1.jpg"),
     path.join(__dirname, "files", "2.jpg"),
-  ])
+  ]);
 
-  await page.getByRole("button", {name: "Save" }).click();
+  await page.getByRole("button", { name: "Save" }).click();
   await expect(page.getByText("Hotel saved!")).toBeVisible();
+});
+
+test("should display hotels", async ({ page }) => {
+  await page.goto(`${UI_URL}my-hotels`);
+
+  await expect(page.getByText("abcd")).toBeVisible();
+  await expect(page.getByText("best hotel")).toBeVisible();
+  await expect(page.getByText("indore,INDIA")).toBeVisible();
+  await expect(page.getByText("All Inclusive")).toBeVisible();
+  await expect(page.getByText("₹ 2600/Night")).toBeVisible();
+  await expect(page.getByText("2 adults, 1 children")).toBeVisible();
+  await expect(page.getByText("5 Star Rating")).toBeVisible();
+
+  await page.locator('button:text("View Details")');
+  await page.locator('button:text("Add Hotel")');
+  // await expect(page.getByRole("link",{ name: "View Details"})).toBeVisible();
+  // await expect(page.getByRole("link",{ name: "Add Hotel"})).toBeVisible({ timeout: 10000 });
 });
