@@ -49,19 +49,40 @@ test("should allow user to add hotel", async ({ page }) => {
   await expect(page.getByText("Hotel saved!")).toBeVisible();
 });
 
-test("should display hotels", async ({ page }) => {
+  test("should display hotels", async ({ page }) => {
+    await page.goto(`${UI_URL}my-hotels`);
+
+    await expect(page.getByText("abcd")).toBeVisible();
+    await expect(page.getByText("best hotel")).toBeVisible();
+    await expect(page.getByText("indore,INDIA").nth(1)).toBeVisible();
+    // await expect(page.locator("indore")).toBeVisible(); 
+    // await expect(page.locator("INDIA")).toBeVisible();
+    await expect(page.getByText("All Inclusive")).toBeVisible();
+    await expect(page.getByText("₹ 2600/Night")).toBeVisible();
+    await expect(page.getByText("2 adults, 1 children").nth(1)).toBeVisible();
+    await expect(page.getByText("5 Star Rating")).toBeVisible();
+
+    // await page.locator('button:text("View Details")').first();
+    // await page.locator('button:text("Add Hotel")').first();
+  await expect(page.getByRole("link",{ name: "View Details"}).first()).toBeVisible();
+  await expect(page.getByRole("link",{ name: "Add Hotel"})).toBeVisible();
+});
+
+test("should edit hotel", async({ page })=>{
   await page.goto(`${UI_URL}my-hotels`);
 
-  await expect(page.getByText("abcd")).toBeVisible();
-  await expect(page.getByText("best hotel")).toBeVisible();
-  await expect(page.getByText("indore,INDIA")).toBeVisible();
-  await expect(page.getByText("All Inclusive")).toBeVisible();
-  await expect(page.getByText("₹ 2600/Night")).toBeVisible();
-  await expect(page.getByText("2 adults, 1 children")).toBeVisible();
-  await expect(page.getByText("5 Star Rating")).toBeVisible();
+  await page.getByRole("link", { name: "View Details" }).first().click();
 
-  await page.locator('button:text("View Details")');
-  await page.locator('button:text("Add Hotel")');
-  // await expect(page.getByRole("link",{ name: "View Details"})).toBeVisible();
-  // await expect(page.getByRole("link",{ name: "Add Hotel"})).toBeVisible({ timeout: 10000 });
-});
+  await page.waitForSelector('[name="name"]', { state: "attached"})
+
+  await expect(page.locator('[name="name"]')).toHaveValue('abcd')
+  await page.locator('[name="name"]').fill("abcd UPDATED")
+  await page.getByRole("button",{ name: "Save"}).click();
+  await expect(page.getByText("Hotel Saved!")).toBeVisible();
+  
+  await page.reload();
+  
+  await expect (page.locator('[name="name"]')).toHaveValue("abcd UPDATED");
+  await page.locator('[name="name"]').fill("abcd");
+  await page.getByRole("button",{ name: "Save"}).click();
+})
