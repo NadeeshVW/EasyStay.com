@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import * as apiClient from "./../api-client";
 import { AiFillStar } from "react-icons/ai";
-import FacilitiesFilter from "../components/FacilitiesFilter";
+// import FacilitiesFilter from "../components/FacilitiesFilter";
 import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm";
 
 const Details = () => {
