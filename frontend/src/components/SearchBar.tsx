@@ -3,7 +3,7 @@ import { useSearchContext } from "../contexts/SearchContext";
 import { MdTravelExplore } from "react-icons/md";
 import  DatePicker  from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
     const navigate = useNavigate();
