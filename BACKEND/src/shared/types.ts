@@ -7,6 +7,7 @@ export type UserType = {
 };
 
 export type HotelType = {
+  map: any;
   
   length: number;
   _id: string;

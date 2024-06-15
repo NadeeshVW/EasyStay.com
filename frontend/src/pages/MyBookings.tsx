@@ -55,6 +55,7 @@
 
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
 
 const MyBookings = () => {
   const { data: hotels } = useQuery(
@@ -69,7 +70,19 @@ const MyBookings = () => {
   return (
     <div className="space-y-5">
       <h1 className="text-3xl font-bold">My Bookings</h1>
-      {hotels.map((hotel) => (
+      {hotels.map((hotel: {
+          imageUrls: (string | undefined)[]; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any
+
+          >> | Iterable<ReactNode> | ReactPortal | null | undefined; city: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any
+    
+          >> | Iterable<ReactNode> | ReactPortal | null | undefined; country: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any
+     
+          >> | Iterable<ReactNode> | ReactPortal | null | undefined; bookings: {
+            checkIn: string | number | Date; checkOut: string | number | Date; adultCount: string | number; childCount: string |
+             
+              number;
+          }[];
+        }) => (
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] border border-slate-300 rounded-lg p-8 gap-5">
           <div className="lg:w-full lg:h-[250px]">
             <img
@@ -84,30 +97,23 @@ const MyBookings = () => {
                 {hotel.city}, {hotel.country}
               </div>
             </div>
-            {hotel.bookings.map(
-              (booking: {
-                checkIn: string | number | Date;
-                checkOut: string | number | Date;
-                adultCount: string | number;
-                childCount: string | number;
-              }) => (
+            {hotel.bookings.map((booking: { checkIn: string | number | Date; checkOut: string | number | Date; adultCount: string | number; childCount:string | number; }) => (
+              <div>
                 <div>
-                  <div>
-                    <span className="font-bold mr-2">Dates: </span>
-                    <span>
-                      {new Date(booking.checkIn).toDateString()} -
-                      {new Date(booking.checkOut).toDateString()}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="font-bold mr-2">Guests:</span>
-                    <span>
-                      {booking.adultCount} adults, {booking.childCount} children
-                    </span>
-                  </div>
+                  <span className="font-bold mr-2">Dates: </span>
+                  <span>
+                    {new Date(booking.checkIn).toDateString()} -
+                    {new Date(booking.checkOut).toDateString()}
+                  </span>
                 </div>
-              )
-            )}
+                <div>
+                  <span className="font-bold mr-2">Guests:</span>
+                  <span>
+                    {booking.adultCount} adults, {booking.childCount} children
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       ))}
