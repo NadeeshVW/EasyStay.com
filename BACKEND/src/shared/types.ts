@@ -7,6 +7,8 @@ export type UserType = {
 };
 
 export type HotelType = {
+  map(arg0: (hotel: any) => import("react/jsx-runtime").JSX.Element): import("react").ReactNode;
+  length: number;
   _id: string;
   userId: string;
   name: string;
